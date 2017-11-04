@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PADC-SFC-News</string>
+    <string name="title_activity_news_list">NewsListActivity</string>
+</resources>
