@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PADC-SFC-News</string>
     <string name="title_activity_news_list">NewsListActivity</string>
+    <string name="dummy_news">ရခိုင်ပြည်နယ်မြောက်ပိုင်းတွင် ဆေးကုသပေးနေသည့် ကွင်းဆင်းဆေးကုသရေး အဖွဲ့များ အသုံးပြုရန်
+        ကမ္ဘာ့ကျန်းမာရေး အဖွဲ့က ဆေးဝါး ၅၉ မျိုး ပါ၀င်သော ရွေ့လျားဆေးအဖွဲ့သုံး ဆေးသေတ္တာများ ဆက်လက်ထောက်ပံ့ပေးမည်ဖြစ်ကြောင်း ... </string>
+    <string name="btn_comment_news">Comment</string>
+    <string name="btn_send_to_news">Send To</string>
 </resources>
