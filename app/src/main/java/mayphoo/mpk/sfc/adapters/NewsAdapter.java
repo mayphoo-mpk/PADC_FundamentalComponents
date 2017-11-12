@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mayphoo.mpk.sfc.R;
+import mayphoo.mpk.sfc.delegates.NewsItemDelegate;
 import mayphoo.mpk.sfc.viewholders.NewsViewHolder;
 
 /**
@@ -16,17 +17,20 @@ import mayphoo.mpk.sfc.viewholders.NewsViewHolder;
 public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private LayoutInflater mLayoutInflater;
+    private NewsItemDelegate mNewsItemDelegate;
 
-    public NewsAdapter(Context context){
+    public NewsAdapter(Context context, NewsItemDelegate newsItemDelegate){
         mLayoutInflater = LayoutInflater.from(context);
+        mNewsItemDelegate = newsItemDelegate;
     }
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View newsItemView = mLayoutInflater.inflate(R.layout.view_item_news, parent, false); //third parameter is view object component directly attach to parent component
-        return new NewsViewHolder(newsItemView);
+        return new NewsViewHolder(newsItemView, mNewsItemDelegate);
     }
 
+    // 'position' is user scroll position, not child view position
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
 
