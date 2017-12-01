@@ -12,7 +12,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white_full">
 
         <ImageView
             android:id="@+id/iv_publication_logo"
@@ -47,7 +48,7 @@
             android:id="@+id/iv_favourite_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_border_24dp"
+            android:src="@drawable/ic_favorite_border_primary_24dp"
             android:layout_alignParentRight="true"
             android:padding="@dimen/margin_medium_2"
             android:clickable="true"
