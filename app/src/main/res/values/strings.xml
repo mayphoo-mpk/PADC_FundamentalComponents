@@ -10,4 +10,11 @@
     <string name="lbl_refresh">Refresh</string>
 
     <string name="transition_title_name">transition:TITLE</string>
+    <string name="btn_to_register"><u><i>New User ? Register</i></u></string>
+    <string name="btn_forgot_password"><u><i>Forgot Password</i></u></string>
+    <string name="lbl_navigate_to_login"><u><i>Already have account ?</i></u></string>
+    <string name="hint_enter_phone">Your Phone</string>
+    <string name="hint_enter_email">Your Email</string>
+    <string name="hint_enter_password">Password</string>
+    <string name="lbl_mark_my_home_on_google_map"><u><i>Mark Your Home in Google Map</i></u></string>
 </resources>

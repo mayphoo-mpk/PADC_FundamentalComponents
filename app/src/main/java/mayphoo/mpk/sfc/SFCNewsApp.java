@@ -2,6 +2,8 @@ package mayphoo.mpk.sfc;
 
 import android.app.Application;
 
+import mayphoo.mpk.sfc.data.models.NewsModel;
+
 /**
  * Created by User on 11/4/2017.
  * This class represents application component.
@@ -14,5 +16,6 @@ public class SFCNewsApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        NewsModel.getInstance().startLoadingMMNews();
     }
 }

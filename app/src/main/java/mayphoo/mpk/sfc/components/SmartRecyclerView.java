@@ -15,7 +15,7 @@ public class SmartRecyclerView extends RecyclerView {
     //attribute that creates Empty view
     private View mEmptyView;
 
-    //call data observer call back method when changes occur in adapter view that is attached with smart recycler view
+    //call dataObserver call back method when changes occur in adapter view that is attached with smart recycler view
     private AdapterDataObserver dataObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {

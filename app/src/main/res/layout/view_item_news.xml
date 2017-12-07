@@ -23,7 +23,7 @@
             android:src="@drawable/img_publication_logo_placeholder" />
 
         <TextView
-            android:id="@+id/tv_publication_name"
+            android:id="@+id/tv_pubication_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eleven Media"
@@ -34,13 +34,13 @@
             android:textSize="@dimen/text_regular_2x"/>
 
         <TextView
-            android:id="@+id/tv_published_date"
+            android:id="@+id/tv_posted_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Posted At : Jan 01 - 6:30AM"
             android:textColor="@color/secondary_text"
-            android:layout_alignLeft="@id/tv_publication_name"
-            android:layout_below="@id/tv_publication_name"
+            android:layout_alignLeft="@id/tv_pubication_title"
+            android:layout_below="@id/tv_pubication_title"
             android:layout_marginTop="@dimen/margin_small"
             android:textSize="@dimen/text_regular"/>
 
@@ -100,8 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:foreground="@drawable/bg_ripple_primary"
-                >
+                android:foreground="@drawable/bg_ripple_primary">
 
                 <TextView
                     android:id="@+id/btn_comment_news"

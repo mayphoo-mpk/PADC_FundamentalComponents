@@ -31,6 +31,7 @@ public class SmartScrollListener extends RecyclerView.OnScrollListener {
         currentDy = dy;
         if(currentDy > previousDy){
             //from top to bottom
+            isListEndReached = true;
         } else if (currentDy < previousDy){
             //from bottom to top
             isListEndReached = false;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mayphoo.mpk.sfc.R;
+import mayphoo.mpk.sfc.data.vo.NewsVO;
 import mayphoo.mpk.sfc.delegates.NewsItemDelegate;
 import mayphoo.mpk.sfc.viewholders.NewsViewHolder;
 
@@ -14,13 +15,12 @@ import mayphoo.mpk.sfc.viewholders.NewsViewHolder;
  * Created by User on 11/4/2017.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class NewsAdapter extends BaseRecyclerAdapter<NewsViewHolder, NewsVO> {
 
-    private LayoutInflater mLayoutInflater;
     private NewsItemDelegate mNewsItemDelegate;
 
     public NewsAdapter(Context context, NewsItemDelegate newsItemDelegate){
-        mLayoutInflater = LayoutInflater.from(context);
+        super(context);
         mNewsItemDelegate = newsItemDelegate;
     }
 
@@ -30,14 +30,4 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         return new NewsViewHolder(newsItemView, mNewsItemDelegate);
     }
 
-    // 'position' is user scroll position, not child view position
-    @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) {
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return 16;
-    }
 }

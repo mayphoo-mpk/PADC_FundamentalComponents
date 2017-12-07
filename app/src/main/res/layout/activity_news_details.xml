@@ -12,6 +12,7 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="256dp"
             app:contentScrim="?attr/colorPrimary"
@@ -38,7 +39,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/tv_publication_name"
+                    android:id="@+id/tv_pubication_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Eleven Media"
@@ -55,12 +56,12 @@
                     />
 
                 <TextView
-                    android:id="@+id/tv_published_date"
+                    android:id="@+id/tv_posted_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Posted At : Jan 01 - 6:30 pm"
-                    android:layout_below="@id/tv_publication_name"
-                    android:layout_alignLeft="@id/tv_publication_name"
+                    android:layout_below="@id/tv_pubication_title"
+                    android:layout_alignLeft="@id/tv_pubication_title"
                     android:layout_marginTop="@dimen/margin_small"
                     android:textColor="@color/white_full"
                     android:textSize="@dimen/text_regular_2x"/>
