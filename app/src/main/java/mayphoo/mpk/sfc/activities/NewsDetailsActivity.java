@@ -2,11 +2,14 @@ package mayphoo.mpk.sfc.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,12 +21,13 @@ import mayphoo.mpk.sfc.R;
 import mayphoo.mpk.sfc.adapters.NewsImagesPagerAdapter;
 import mayphoo.mpk.sfc.data.models.NewsModel;
 import mayphoo.mpk.sfc.data.vo.NewsVO;
+import mayphoo.mpk.sfc.persistence.MMNewsContract;
 
 /**
  * Created by User on 11/11/2017.
  */
 
-public class NewsDetailsActivity extends BaseActivity {
+public class NewsDetailsActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @BindView(R.id.vp_news_details_images)
     ViewPager vpNewsDetailsImages;
@@ -40,13 +44,22 @@ public class NewsDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_news_details)
     TextView tvNewsDetails;
 
-    private static final String tap_news_id = "tap_news_id";
-    private NewsVO mNews;
+    private static final String IE_NEWS_ID = "IE_NEWS_ID";
+    private static final int NEWS_DETAILS_LOADER_ID = 1002;
+
+    private String mNewsId;
+
     NewsImagesPagerAdapter newsImagesPagerAdapter;
 
-    public static Intent newIntent(Context context, NewsVO news){
+    /**
+     * Create intent object to start NewsDetailsActivity
+     * @param context
+     * @param newsId : id for news object.
+     * @return
+     */
+    public static Intent newIntent(Context context, String newsId){
         Intent intent = new Intent(context, NewsDetailsActivity.class);
-        intent.putExtra(tap_news_id, news.getNewsId());
+        intent.putExtra(IE_NEWS_ID, newsId);
         return intent;
     }
 
@@ -59,21 +72,15 @@ public class NewsDetailsActivity extends BaseActivity {
         newsImagesPagerAdapter = new NewsImagesPagerAdapter(getApplicationContext());
         vpNewsDetailsImages.setAdapter(newsImagesPagerAdapter);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if(bundle != null){
-            String newsId = bundle.getString(tap_news_id);
-            mNews = NewsModel.getInstance().getNewsDetailsByNewId(newsId);
-            bindData(mNews);
+        mNewsId = getIntent().getStringExtra(IE_NEWS_ID);
+        if(TextUtils.isEmpty(mNewsId)){
+            throw new UnsupportedOperationException("newsId required for NewsDetailsActivity");
+        } else {
+            getSupportLoaderManager().initLoader(NEWS_DETAILS_LOADER_ID, null, this);
         }
-
     }
 
     private void bindData(NewsVO news){
-        if(news.getImages() != null && news.getImages().size() > 0){
-            newsImagesPagerAdapter.setImages(news.getImages());
-        }
-
         Glide.with(ivPublicationLogo.getContext())
                 .load(news.getPublication().getLogo())
                 .into(ivPublicationLogo);
@@ -81,6 +88,35 @@ public class NewsDetailsActivity extends BaseActivity {
         tvPublicationTitle.setText(news.getPublication().getTitle());
         tvPostedDate.setText(news.getPostedDate());
         tvNewsDetails.setText(news.getDetails());
+
+        if(news.getImages().isEmpty()){
+
+        } else {
+            newsImagesPagerAdapter.setImages(news.getImages());
+        }
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getApplicationContext(),
+                MMNewsContract.NewsEntry.CONTENT_URI,
+                null,
+                MMNewsContract.NewsEntry.COLUMN_NEWS_ID + " = ?",new String[]{mNewsId},
+                null);
+    }
+
+    // convert cursor object to object format
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if(data != null && data.moveToFirst()){
+            NewsVO news = NewsVO.parseFromCursor(getApplicationContext(), data);
+            bindData(news);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

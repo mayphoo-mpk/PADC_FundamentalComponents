@@ -17,4 +17,9 @@
     <string name="hint_enter_email">Your Email</string>
     <string name="hint_enter_password">Password</string>
     <string name="lbl_mark_my_home_on_google_map"><u><i>Mark Your Home in Google Map</i></u></string>
+
+    <string name="btn_add_news">Publish</string>
+    <string name="lbl_add_photo">သတင်းဓါတ်ပုံ</string>
+    <string name="screen_title_add_news">Publish News</string>
+
 </resources>

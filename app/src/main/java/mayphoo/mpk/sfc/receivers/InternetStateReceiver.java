@@ -19,7 +19,7 @@ public class InternetStateReceiver extends BroadcastReceiver {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo.isConnected()){
+        if(networkInfo != null && networkInfo.isConnected()){
             Toast.makeText(context, "Your device is connected to internet.", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(context, "Your device is no longer connected to internet.", Toast.LENGTH_LONG).show();

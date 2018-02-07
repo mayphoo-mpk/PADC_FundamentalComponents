@@ -1,5 +1,7 @@
 package mayphoo.mpk.sfc.network;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,11 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MMNewsDataAgentImpl implements MMNewsDataAgent {
 
-    private static MMNewsDataAgent objInstance;
-
     private MMNewsAPI theAPI;
 
-    private MMNewsDataAgentImpl() {
+    public MMNewsDataAgentImpl() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
@@ -41,35 +41,20 @@ public class MMNewsDataAgentImpl implements MMNewsDataAgent {
         theAPI = retrofit.create(MMNewsAPI.class);
     }
 
-    public static MMNewsDataAgent getInstance() {
-        if(objInstance == null){
-            objInstance = new MMNewsDataAgentImpl();
-        }
-        return objInstance;
-    }
-
     @Override
-    public void loadMMNews(String accessToken, int pageNo) {
+    public void loadMMNews(String accessToken, int pageNo, final Context context) {
         Call<GetNewsResponse> loadMMNewsCall = theAPI.loadMMNews(pageNo, accessToken);
-       loadMMNewsCall.enqueue(new Callback<GetNewsResponse>() {
+       loadMMNewsCall.enqueue(new SFCCallback<GetNewsResponse>() {
            @Override
            public void onResponse(Call<GetNewsResponse> call, Response<GetNewsResponse> response) {
+               super.onResponse(call, response);
                GetNewsResponse getNewsResponse = response.body();
                if (getNewsResponse != null && getNewsResponse.getNewsList().size() > 0){
-                    RestApiEvents.NewsDataLoadedEvent newsDataLoadedEvent = new RestApiEvents.NewsDataLoadedEvent(getNewsResponse.getPageNo(), getNewsResponse.getNewsList());
+                    RestApiEvents.NewsDataLoadedEvent newsDataLoadedEvent = new RestApiEvents.NewsDataLoadedEvent(getNewsResponse.getPageNo(), getNewsResponse.getNewsList(), context);
                     EventBus.getDefault().post(newsDataLoadedEvent);
-               } else {
-                   RestApiEvents.ErrorInvokingAPIEvent errorEvent = new RestApiEvents.ErrorInvokingAPIEvent("No data could be loaded for now. Pls try again later.");
-                   EventBus.getDefault().post(errorEvent);
                }
-
            }
 
-           @Override
-           public void onFailure(Call<GetNewsResponse> call, Throwable t) {
-               RestApiEvents.ErrorInvokingAPIEvent errorEvent = new RestApiEvents.ErrorInvokingAPIEvent(t.getMessage());
-                EventBus.getDefault().post(errorEvent);
-           }
        });
 
     }

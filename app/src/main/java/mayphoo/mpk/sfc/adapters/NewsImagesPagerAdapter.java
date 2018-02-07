@@ -14,6 +14,7 @@ import java.util.List;
 
 import mayphoo.mpk.sfc.R;
 import mayphoo.mpk.sfc.data.vo.NewsVO;
+import mayphoo.mpk.sfc.viewitems.NewsDetailsImageViewItem;
 
 /**
  * Created by User on 11/11/2017.
@@ -22,17 +23,17 @@ import mayphoo.mpk.sfc.data.vo.NewsVO;
 public class NewsImagesPagerAdapter extends PagerAdapter {
 
     private LayoutInflater mLayoutInflater;
-    private List<String> images;
+    private List<String> mImages;
 
     public NewsImagesPagerAdapter(Context context) {
         super();
         mLayoutInflater = LayoutInflater.from(context);
-        images = new ArrayList<>();
+        mImages = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return images.size();
+        return mImages.size();
     }
 
     //check child view object('view' parameter) is view pager object ('object' parameter)
@@ -43,14 +44,10 @@ public class NewsImagesPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View itemView = mLayoutInflater.inflate(R.layout.view_item_news_details_image, container, false);
-        ImageView imageView = itemView.findViewById(R.id.iv_details_image);
-        if(images != null && images.size() > 0){
-            Glide.with(imageView.getContext())
-                    .load(images.get(0))
-                    .into(imageView);
-        }
+        NewsDetailsImageViewItem itemView = (NewsDetailsImageViewItem) mLayoutInflater.inflate(R.layout.view_item_news_details_image, container, false);
+        itemView.setData(mImages.get(position));
         container.addView(itemView);
+
         return itemView;
     }
 
@@ -60,8 +57,8 @@ public class NewsImagesPagerAdapter extends PagerAdapter {
         container.removeView((View)object);
     }
 
-    public void setImages(List<String> newsImages){
-        this.images = newsImages;
+    public void setImages(List<String> images){
+        this.mImages = images;
         notifyDataSetChanged();
     }
 }

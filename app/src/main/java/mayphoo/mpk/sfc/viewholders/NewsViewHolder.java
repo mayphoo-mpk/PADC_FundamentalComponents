@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -39,7 +38,7 @@ public class NewsViewHolder extends BaseViewHolder<NewsVO> {
     TextView tvNewsStatisticalData;
 
     private NewsItemDelegate mDelegate;
-    private NewsVO mNews;
+    private NewsVO mData;
 
     public NewsViewHolder(View itemView, NewsItemDelegate newsItemDelegate) {
         super(itemView);
@@ -49,25 +48,30 @@ public class NewsViewHolder extends BaseViewHolder<NewsVO> {
 
     @Override
     public void setData(NewsVO news) {
-        mNews = news;
+        mData = news;
 
-        Glide.with(ivPublicationLogo.getContext())
-                .load(news.getPublication().getLogo())
-                .into(ivPublicationLogo);
+        if(news.getPublication() != null){
+            Glide.with(ivPublicationLogo.getContext())
+                    .load(news.getPublication().getLogo())
+                    .into(ivPublicationLogo);
+            tvPublicationTitle.setText(news.getPublication().getTitle());
+        }
 
-        tvPublicationTitle.setText(news.getPublication().getTitle());
         tvPostedDate.setText(news.getPostedDate());
         tvBriefNews.setText(news.getBrief());
 
-        if(news.getImages() != null && news.getImages().size() > 0){
+        if(!news.getImages().isEmpty()){
+            ivNewsHeroImage.setVisibility(View.VISIBLE);
             Glide.with(ivNewsHeroImage.getContext())
                     .load(news.getImages().get(0))
                     .into(ivNewsHeroImage);
+        } else {
+            ivNewsHeroImage.setVisibility(View.GONE);
         }
 
-        int favoriteCount = news.getFavorites() != null ?  news.getFavorites().size() : 0;
-        int likeCount = news.getComment() != null ?  news.getComment().size() : 0;
-        int shareCount = news.getSentTo() != null ?  news.getSentTo().size() : 0;
+        int favoriteCount = news.getFavoriteActions() != null ?  news.getFavoriteActions().size() : 0;
+        int likeCount = news.getCommentActions() != null ?  news.getCommentActions().size() : 0;
+        int shareCount = news.getSentToActions() != null ?  news.getSentToActions().size() : 0;
         Log.d("news statistical data", "favorite count : " + favoriteCount +
         "like count: " + likeCount + "share count: " + shareCount);
 
@@ -79,6 +83,6 @@ public class NewsViewHolder extends BaseViewHolder<NewsVO> {
 
     @Override
     public void onClick(View view) {
-        mDelegate.onTapNews(mNews);
+        mDelegate.onTapNews(mData);
     }
 }

@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mayphoo.mpk.sfc.data.vo.NewsVO;
+import mayphoo.mpk.sfc.network.SFCResponse;
 
 /**
  * Created by User on 12/3/2017.
  */
 
-public class GetNewsResponse {
+public class GetNewsResponse extends SFCResponse {
 
     @SerializedName("code")
     private int code;

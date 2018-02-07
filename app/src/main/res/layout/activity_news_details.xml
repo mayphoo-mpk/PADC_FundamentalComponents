@@ -38,7 +38,7 @@
                     android:layout_marginLeft="@dimen/margin_medium_2"
                     />
 
-                <TextView
+                <net.aungpyaephyo.mmtextview.components.MMTextView
                     android:id="@+id/tv_pubication_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     android:shadowRadius="1"
                     />
 
-                <TextView
+                <net.aungpyaephyo.mmtextview.components.MMTextView
                     android:id="@+id/tv_posted_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <net.aungpyaephyo.mmtextview.components.MMTextView
                 android:id="@+id/tv_news_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
         android:padding="@dimen/margin_medium_2"
         >
 
-        <TextView
+        <net.aungpyaephyo.mmtextview.components.MMTextView
             android:id="@+id/btn_comment_news"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_large_size"
@@ -121,7 +121,7 @@
             android:drawableLeft="@drawable/ic_chat_bubble_outline_accent_24dp"
             />
 
-        <TextView
+        <net.aungpyaephyo.mmtextview.components.MMTextView
             android:id="@+id/btn_send_to_news"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_large_size"
